@@ -1,11 +1,13 @@
 // server.js (na raiz)
-const express = require('express');
-const bruxoRoutes = require('./src/routes/bruxoRoutes');
+import express from "express";
+import dotenv from "dotenv";
+import bruxosRoutes from "./src/routes/bruxosRoutes.js";
 
 const app = express();
-const PORT = 3001;
-
 app.use(express.json());
+
+dotenv.config();
+const serverPort = process.env.PORT || 3001;
 
 app.get('/', (req, res) => {
   res.json({ 
@@ -20,8 +22,8 @@ app.get('/', (req, res) => {
   });
 });
 
-app.use('/bruxos', bruxoRoutes);
+app.use('/bruxos', bruxosRoutes);
 
-app.listen(PORT, () => {
-  console.log(`🪄 API aberta em http://localhost:${PORT}`);
+app.listen(serverPort, () => {
+  console.log(`🪄 API aberta em http://localhost:${serverPort}`);
 });
