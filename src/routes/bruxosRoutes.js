@@ -5,5 +5,7 @@ const router = Router();
 
 router.get("/", bruxosController.listAll);
 router.get("/:id", bruxosController.listOne);
+router.post("/", bruxosController.create);
+router.delete("/:id", bruxosController.deletar);
 
 export default router;
