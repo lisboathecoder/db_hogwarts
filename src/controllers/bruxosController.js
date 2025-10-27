@@ -117,3 +117,40 @@ export const deletar = async (req, res) => {
     });
   }
 };
+
+export const atualizar = async (req, res) => {
+  try {
+    const id = parseInt(req.params.id);
+    const dados = req.body;
+
+    const bruxoExiste = await BruxoModel.findOne(id);
+
+    if (!bruxoExiste) {
+      return res.status(404).json({
+        error: "Bruxo não existe!",
+        id: id,
+      });
+    }
+    if (dados.casa) {
+      const casasValidas = ["Grifinória", "Sonserina", "Corvinal", "Lufa-Lufa"];
+      if (!casasValidas.includes(dados.casa)) {
+        return res.status(400).json({
+          erro: "Casa inválida! O Chapéu Seletor só reconhece as 4 casas",
+          casasValidas,
+        });
+      }
+    }
+
+    const bruxoAtualizado = await BruxoModel.atualizar(id, dados);
+
+    res.status(200).json({
+      bruxo: bruxoAtualizado,
+      mensagem: "Bruxo atualizado com sucesso!",
+    });
+  } catch (error) {
+    res.status(500).json({
+      erro: "Erro ao atualizar bruxo",
+      details: error.message,
+    });
+  }
+};

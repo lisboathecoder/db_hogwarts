@@ -31,3 +31,17 @@ export const deletar = async (id) => {
     where: { id: Number(id) },
   });
 };
+
+export const atualizar = async (id, data) => {
+  return await prisma.bruxo.update({
+    where: { id: Number(id) },
+    data: {
+      ...(data.name && { name: data.name }),
+      ...(data.casa && { name: data.casa }),
+      ...(data.patrono && { name: data.patrono }),
+      ...(data.varinha && { name: data.varinha }),
+      ...(data.anoMatricula && { name: data.anoMatricula }),
+      ...(data.ativo !== undefined && { ativo: data.ativo})
+    }
+  })
+}

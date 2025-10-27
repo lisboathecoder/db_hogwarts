@@ -7,5 +7,6 @@ router.get("/", bruxosController.listAll);
 router.get("/:id", bruxosController.listOne);
 router.post("/", bruxosController.create);
 router.delete("/:id", bruxosController.deletar);
+router.put("/:id", bruxosController.atualizar);
 
 export default router;
